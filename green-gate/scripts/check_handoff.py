@@ -19,12 +19,26 @@ POST = ['Blocked by', 'Clashed with', 'Tried']
 
 
 def value(block, label):
-    m = re.search(r'^\s*-\s*' + re.escape(label) + r'\s*:\s*(.*)$', block, re.M)
-    return None if m is None else m.group(1).strip()
+    """The text after '- Label:' (a note in brackets after the label is allowed, e.g. 'Files changed (Round 2):').
+    When the line itself is empty, the indented lines under it are the value."""
+    m = re.search(r'^(\s*)-\s*(?:\*\*)?' + re.escape(label) + r'(?:\*\*)?(?:\s*\([^)]*\))?\s*:(?:\*\*)?[ \t]*(.*)$',
+                  block, re.M)
+    if m is None:
+        return None
+    if m.group(2).strip():
+        return m.group(2).strip()
+    indent, under = len(m.group(1)), []
+    for line in block[m.end():].splitlines()[1:]:
+        if not line.strip():
+            continue
+        if len(line) - len(line.lstrip()) <= indent:
+            break
+        under.append(line.strip())
+    return ' '.join(under)
 
 
 def answered(v):
-    return v is not None and v != '' and '<' not in v
+    return v is not None and v != '' and not v.startswith('<')  # a template placeholder starts with <; a value may hold <path>
 
 
 def check(text):
