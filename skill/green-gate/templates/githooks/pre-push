@@ -1,0 +1,29 @@
+#!/bin/sh
+# green-gate pre-push guard (templates/githooks/pre-push).
+# Engineers never push the protected branches and never rewrite history; the Director passes with
+# GREEN_GATE_DIRECTOR=1 on its own push. Install once per clone: copy to .githooks/pre-push, then
+#   git config core.hooksPath .githooks
+# Every worktree of that clone then uses it. Cloud sessions never run local hooks: use branch protection there.
+# Protected branches: main, master, release*, deploy*; extend with GREEN_GATE_PROTECTED="name1 name2".
+
+zero=0000000000000000000000000000000000000000
+while read local_ref local_sha remote_ref remote_sha; do
+  branch=${remote_ref#refs/heads/}
+  if [ "$local_sha" = "$zero" ]; then
+    echo "green-gate: removing the remote branch $branch is refused (never delete; quarantine)." >&2
+    exit 1
+  fi
+  protected=no
+  case "$branch" in main|master|release*|deploy*) protected=yes ;; esac
+  for p in $GREEN_GATE_PROTECTED; do [ "$branch" = "$p" ] && protected=yes; done
+  if [ "$protected" = yes ] && [ "$GREEN_GATE_DIRECTOR" != "1" ]; then
+    echo "green-gate: only the Director pushes $branch. Push your own branch and open a PR." >&2
+    exit 1
+  fi
+  if [ "$remote_sha" != "$zero" ] && ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then
+    echo "green-gate: this push would rewrite $branch (a force-push), or its remote tip is not fetched." >&2
+    echo "green-gate: fetch, merge, and push again; never force-push." >&2
+    exit 1
+  fi
+done
+exit 0

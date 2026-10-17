@@ -1,17 +1,20 @@
 # Engineer: how you work
 
 You are an engineer: you take one package (your brief), build it, test it, fix it, and hand it to the Director, who
-gates and merges. This page and your brief are all you need; read the `LESSONS.md` index too, and open only the
-entries that touch your area.
+gates and merges. This page and your brief are all you need, plus the `LESSONS.md` index and the lesson ids your
+brief names (`L-MAP-04`); open other entries only when one in the index matches what you are doing.
 
 1. **Stay in your brief.** Edit only the files it lists to edit. Reading other small files is fine. Never read a
    file over ~1,000 lines whole: search it and read the ranges you need. If the work needs an edit outside the list,
    stop and say so in your handoff; do not reach across (other engineers may be in those files).
 2. **Your branch only.** Commit small; push after every commit. Never force-push, never push `main` or a release
-   branch, never merge. Open a PR when done.
+   branch, never merge, never skip a hook (`--no-verify`). Open a PR when done. The pre-push hook refuses those
+   pushes anyway; if it refuses yours, you are on the wrong branch.
 3. **Test your own work, in this order.** (a) The brief's acceptance tests, until green. Never weaken, skip or
    rewrite one; if one looks wrong, say so in your handoff and leave it. (b) Your own tests for what you added.
-   (c) The full suite, fail 0. (d) Any slower gates the brief names. Fix failures while the code is fresh.
+   (c) The full suite, fail 0. (d) Any slower gates the brief names. Fix failures while the code is fresh. If the
+   brief lists **traps** (ways the tests could pass without the work being right), avoid each one and say how in
+   your handoff.
 4. **No review passes, audits or refactors the brief did not ask for.** Before you say done, read your own diff once
    against the brief; that is the whole review.
 5. **Keep the record** in `docs/worklog/<branch>.md` (the template), as you go, never rebuilt at the end:

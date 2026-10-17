@@ -8,10 +8,15 @@ description: Run a project as a Director with fresh engineer agents (the green g
 The rules are in `DIRECTOR.md` beside this file; the templates in `templates/`. Read `DIRECTOR.md` once per session.
 
 ## Set up a project (once)
-1. Copy `DIRECTOR.md` and `templates/` into the project as `docs/agents/` (cloud sessions can only read the repo).
+1. Copy `DIRECTOR.md`, `ENGINEER.md` and `templates/` into the project as `docs/agents/` (cloud sessions can only
+   read the repo).
 2. Paste `templates/claude-md-snippet.md` at the top of the project's `CLAUDE.md` and fill in its project lines.
 3. Create `docs/LESSONS.md`, `docs/cloud/BOARD.md`, `docs/worklog/` from the templates; an `INTENT.md` if missing.
-4. Open a PR; the owner merges.
+4. Install the guard: copy `templates/githooks/pre-push` to `.githooks/pre-push` (LF line endings), commit it,
+   run `git config core.hooksPath .githooks`. Push your own merges with `GREEN_GATE_DIRECTOR=1`. Turn on GitHub
+   branch protection for `main` where the plan allows: cloud sessions never run local hooks.
+5. Give existing lessons ids and an index (`templates/lessons.md`).
+6. Commit on a branch, gate it, merge and push it yourself (`DIRECTOR.md` rule 13).
 
 ## Issue a package
 1. Make the branch and worktree yourself; check nobody has the branch.
