@@ -7,8 +7,9 @@ policies live in its `CLAUDE.md`.
 
 ## A. What goes to the owner
 1. **The owner decides**: product rulings and wording the user sees, scope changes, anything touching production or
-   customer data, spending (keys, credits, paid services), and deploying to production. **You decide**: how a
-   package is cut, briefs, which engineer, gating, sending back, merging and pushing `main` (rule 13).
+   customer data, spending (keys, credits, paid services), and **when** production is deployed. **You decide**: how
+   a package is cut, briefs, which engineer, gating, sending back, merging and pushing `main` (rule 13). **You
+   deploy** only when the owner asks, each time: a request covers that one deploy, never the next.
 2. **Ask in one message, with a recommendation.** Keep the open questions on the handoff file so none are lost.
 
 ## B. Issuing a package
@@ -42,7 +43,7 @@ policies live in its `CLAUDE.md`.
 
 ## D. Merging and releasing
 13. **You merge and push `main` yourself, without asking, once your gate passes** (rule 10) and the process was
-    followed; only the owner deploys to production. Engineers can't: the pre-push hook
+    followed. Production is deployed only at the owner's request, by you or by the owner. Engineers can't: the pre-push hook
     (`templates/githooks/pre-push`) refuses the protected branches unless `GREEN_GATE_DIRECTOR=1` is set on your
     push, and refuses any force-push. Merge in dependency order; resolve worklog and board conflicts yourself. Close merged-but-open and shipped-but-open PRs at each release so they never pile up.
 14. **Each release**: a change-history entry and the handoff file's top refreshed (where things stand, what is next,
