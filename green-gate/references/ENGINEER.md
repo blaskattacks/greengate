@@ -48,7 +48,9 @@ brief names (`L-MAP-04`); open other entries only when one in the index matches 
     - **Traps**: for each trap the brief lists (tests passing without the work being right), how you avoided it.
 12. **Read your own diff once** against the brief and these checks. That is the whole review.
 13. **Say done with the handoff block** at the top of your worklog and in your last message (the template: files,
-    commands, counts, design checks, side effects, not done, rounds).
+    commands, counts, design checks, side effects, not done, rounds). The six design checks go inside the block, as
+    sub-lines under `- Design checks:`, not in a section of their own. Before you say done, run
+    `scripts/check_handoff.py <worklog>` (in a project: `docs/agents/scripts/check_handoff.py`); it must say complete.
 
 ## After
 
