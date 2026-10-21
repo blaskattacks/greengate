@@ -39,7 +39,8 @@ live in its `CLAUDE.md`. Paths below are where the setup script puts things: `do
 11. **Verify in a fresh tree**: a new worktree at the PR's exact commit merged onto `main`, empty data, your own
     ports, so nothing left over from an earlier run can make it pass. Never clean an existing tree to get there (a
     clean wipes files for good). Then `git diff --stat`, the acceptance tests, the full suite, the gates. Review the
-    diff, never whole files.
+    diff, never whole files. Read the handoff's `Red first` line: each acceptance test was red before the code, with
+    the run or commit that shows it; a handoff without it goes back (the test may have passed with no code).
 12. **Review through the same lenses the engineer used** (`ENGINEER.md` rule 11: wrong client, old client and old
     data, change mid-run, the edges, what ships, the traps) plus regressions outside the brief. For a risky package,
     hand the review to a fresh reviewer agent with those lenses, read-only, its own ports; ask it to mark each

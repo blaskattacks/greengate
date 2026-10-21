@@ -14,9 +14,11 @@ brief names (`L-MAP-04`); open other entries only when one in the index matches 
 3. **Plan first when the brief says "plan first"** (risky packages): ten lines at the top of the worklog (the
    approach, the risky part, how you will test it), sent to the Director; wait for its answer. A cloud engineer that
    cannot message writes the plan and goes on.
-4. **Write the acceptance tests first and watch them fail.** The brief names them. Run them before the code: a test
-   that passes with no code tests nothing; fix the test, never the brief's intent. Never weaken, skip or rewrite one
-   later; if one looks wrong, say so in your handoff and leave it.
+4. **Test first, then build.** Every behaviour you add gets its test before its code: the brief's acceptance tests,
+   and your own for each step. Run each test before the code and watch it fail; the failure is what proves the test
+   can catch the fault. A test that passes with no code tests nothing: fix the test, never the brief's intent. Record
+   it: the handoff's `Red first` line names each acceptance test and the run or commit where it was red. Never
+   weaken, skip or rewrite a test later; if one looks wrong, say so in your handoff and leave it.
 
 ## While you build
 

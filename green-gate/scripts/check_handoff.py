@@ -13,7 +13,7 @@ import re
 import sys
 from pathlib import Path
 
-LINES = ['Files changed', 'Commands', 'Output', 'Design checks', 'Side effects', 'Not done', 'Rounds']
+LINES = ['Files changed', 'Commands', 'Output', 'Red first', 'Design checks', 'Side effects', 'Not done', 'Rounds']
 CHECKS = ['Wrong client', 'Old client, old data', 'Change mid-run', 'The edges', 'What ships', 'Traps']
 POST = ['Blocked by', 'Clashed with', 'Tried']
 

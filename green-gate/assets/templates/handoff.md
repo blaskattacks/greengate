@@ -2,6 +2,7 @@
 - Files changed: `src/lib/x.js`, `test/x.test.js`
 - Commands: `npm test` (and the acceptance tests, phases or replay run)
 - Output: 2410 tests, 2404 pass, 0 fail, 6 skipped
+- Red first: each acceptance test and where it failed before the code (a run log or a commit), or n/a with why
 - Design checks:
   - Wrong client: <one line, or n/a>
   - Old client, old data: <one line, or n/a>
